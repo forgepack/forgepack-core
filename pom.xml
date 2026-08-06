@@ -48,6 +48,11 @@
 			<artifactId>forgepack-utils</artifactId>
 			<version>0.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>dev.forgepack</groupId>
+			<artifactId>forgepack-validation</artifactId>
+			<version>0.0.2</version>
+		</dependency>
 		<!-- Hibernate Envers: provides auditing -->
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
