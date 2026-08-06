@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>dev.forgepack</groupId>
 			<artifactId>forgepack-validation</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.3</version>
 		</dependency>
 		<!-- Hibernate Envers: provides auditing -->
 		<dependency>
