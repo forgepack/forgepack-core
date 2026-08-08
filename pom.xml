@@ -40,20 +40,19 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
-		<jacoco.version>0.8.15</jacoco.version>
 	</properties>
 	<dependencies>
 		<!-- Forgepack: Email, QRcode, AES encryption -->
 		<dependency>
 			<groupId>dev.forgepack</groupId>
 			<artifactId>forgepack-utils</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.3</version>
 		</dependency>
 		<!-- Forgepack: Custom Bean Validation -->
 		<dependency>
 			<groupId>dev.forgepack</groupId>
 			<artifactId>forgepack-validation</artifactId>
-			<version>0.0.3</version>
+			<version>0.0.4</version>
 		</dependency>
 		<!-- Hibernate Envers: provides auditing -->
 		<dependency>
