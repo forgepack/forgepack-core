@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>dev.forgepack</groupId>
 	<artifactId>forgepack-core</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<name>Maven Library</name>
 	<description>Project for Spring Boot library</description>
 	<url>https://github.com/orgs/forgepack/forgepack-core</url>
