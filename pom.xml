@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>dev.forgepack</groupId>
 			<artifactId>forgepack-validation</artifactId>
-			<version>0.0.4</version>
+			<version>0.0.5</version>
 		</dependency>
 		<!-- Hibernate Envers: provides auditing -->
 		<dependency>
