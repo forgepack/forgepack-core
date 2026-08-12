@@ -38,7 +38,7 @@ import java.util.UUID;
  * @see NoRepositoryBean
  */
 @NoRepositoryBean
-public interface RepositoryGeneric<T> extends JpaRepository<T, UUID> {
+public interface RepositoryCrud<T> extends JpaRepository<T, UUID> {
 
     /**
      * Retrieves a paginated result containing entities that match the given ID.

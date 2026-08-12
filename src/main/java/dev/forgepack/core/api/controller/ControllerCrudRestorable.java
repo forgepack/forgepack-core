@@ -8,7 +8,7 @@ import java.util.UUID;
  * such as hard deletion and restoration of resources.
  *
  * <p>This interface is intended to be used as an optional extension to
- * {@link ControllerGeneric}, providing additional endpoints for managing
+ * {@link ControllerCrudMutable}, providing additional endpoints for managing
  * resource states beyond standard CRUD operations.</p>
  *
  * <p>These operations are typically applicable in systems that implement
@@ -33,7 +33,16 @@ import java.util.UUID;
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  */
-public interface ControllerLifecycle<DTOResponse> {
+public interface ControllerCrudRestorable<DTOResponse> {
+
+    /**
+     * Deletes a resource by its unique identifier.
+     *
+     * @param id identifier of the resource to delete
+     * @return {@link ResponseEntity} with no content, indicating the resource
+     * was soft deleted (HTTP 204)
+     */
+    ResponseEntity<Void> softDelete(UUID id);
 
     /**
      * Permanently deletes a resource, removing it from the data store.

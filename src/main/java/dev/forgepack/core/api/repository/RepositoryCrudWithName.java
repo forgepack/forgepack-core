@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * Specialized repository contract for entities that expose a {@code name} attribute.
  *
- * <p>This interface extends {@link RepositoryGeneric} by adding query methods
+ * <p>This interface extends {@link RepositoryCrud} by adding query methods
  * based on a conventional {@code name} field, enabling common operations such as
  * search, filtering, and uniqueness validation.</p>
  *
@@ -32,11 +32,11 @@ import java.util.UUID;
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  *
- * @see RepositoryGeneric
+ * @see RepositoryCrud
  * @see org.springframework.data.jpa.repository.JpaRepository
  */
 @NoRepositoryBean
-public interface RepositoryGenericWithName<T> extends RepositoryGeneric<T> {
+public interface RepositoryCrudWithName<T> extends RepositoryCrud<T> {
 
     /**
      * Retrieves the entity with the exact given name, if present.

@@ -1,10 +1,8 @@
 package dev.forgepack.core.api.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
@@ -31,21 +29,12 @@ import java.util.UUID;
  * <h3>Validation</h3>
  * <p>Request payloads are validated using {@code @Valid} and Bean Validation.</p>
  *
- * @param <DTORequest> type representing the request payload
  * @param <DTOResponse> type representing the response payload
  *
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  */
-public interface ControllerGeneric<DTORequest, DTOResponse> {
-
-    /**
-     * Creates a new resource.
-     *
-     * @param created request payload containing resource data
-     * @return {@link ResponseEntity} containing the created resource
-     */
-    ResponseEntity<DTOResponse> create(@RequestBody @Valid DTORequest created);
+public interface ControllerCrudRead<DTOResponse> {
 
     /**
      * Retrieves a paginated list of resources, optionally filtered by a value.
@@ -66,22 +55,4 @@ public interface ControllerGeneric<DTORequest, DTOResponse> {
      * @return {@link ResponseEntity} containing the requested resource
      */
     ResponseEntity<DTOResponse> findById(UUID id);
-
-    /**
-     * Updates an existing resource.
-     *
-     * @param id identifier of the resource to update
-     * @param updated request payload containing updated data
-     * @return {@link ResponseEntity} containing the updated resource
-     */
-    ResponseEntity<DTOResponse> update(UUID id, @RequestBody @Valid DTORequest updated);
-
-    /**
-     * Deletes a resource by its unique identifier.
-     *
-     * @param id identifier of the resource to delete
-     * @return {@link ResponseEntity} with no content, indicating the resource
-     * was soft deleted (HTTP 204)
-     */
-    ResponseEntity<Void> delete(UUID id);
 }

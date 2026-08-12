@@ -2,8 +2,8 @@ package dev.forgepack.core.internal.service;
 
 import dev.forgepack.core.api.mapper.Mapper;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
-import dev.forgepack.core.api.repository.RepositoryGeneric;
-import dev.forgepack.core.api.service.ServiceGeneric;
+import dev.forgepack.core.api.repository.RepositoryCrud;
+import dev.forgepack.core.api.service.ServiceCrudMutable;
 import dev.forgepack.core.internal.model.GenericAuditEntity;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,9 +28,9 @@ import org.slf4j.LoggerFactory;
 import static org.springframework.data.domain.ExampleMatcher.matching;
 
 /**
- * Default implementation of {@link ServiceGeneric}.
+ * Default implementation of {@link ServiceCrudMutable}.
  *
- * <p>Delegates persistence to a {@link RepositoryGeneric} and conversion to a
+ * <p>Delegates persistence to a {@link RepositoryCrud} and conversion to a
  * {@link Mapper}. Enriches response DTOs with HATEOAS self links via
  * {@link #addHateoas(GenericAuditEntity)}.</p>
  *
@@ -41,111 +41,21 @@ import static org.springframework.data.domain.ExampleMatcher.matching;
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  *
- * @see ServiceGeneric
- * @see RepositoryGeneric
+ * @see ServiceCrudMutable
+ * @see RepositoryCrud
  * @see Mapper
  */
-public abstract class ServiceGenericImpl<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>> implements ServiceGeneric<Entity, DTORequest, DTOResponse> {
+public abstract class ServiceUtils<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>> {
 
     private final Class<Entity> entity;
-    private final RepositoryGeneric<Entity> repositoryGeneric;
+    private final RepositoryCrud<Entity> repositoryGeneric;
     private final Mapper<Entity, DTORequest, DTOResponse> mapper;
-    private static final Logger log = LoggerFactory.getLogger(ServiceGenericImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(ServiceUtils.class);
 
-    public ServiceGenericImpl(Class<Entity> entity, RepositoryGeneric<Entity> repositoryGeneric, Mapper<Entity, DTORequest, DTOResponse> mapper) {
+    public ServiceUtils(Class<Entity> entity, RepositoryCrud<Entity> repositoryGeneric, Mapper<Entity, DTORequest, DTOResponse> mapper) {
         this.entity = entity;
         this.repositoryGeneric = repositoryGeneric;
         this.mapper = mapper;
-    }
-
-    @Override
-    @Transactional
-    public DTOResponse create(DTORequest created){
-        Entity entity = repositoryGeneric.save(mapper.toEntity(created));
-        addLog("create", entity.getId(), null, null);
-        return addHateoas(entity);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Page<DTOResponse> findAll(Pageable pageable, String value, Class<Entity> entity) {
-        String propertyName = pageable.getSort().stream()
-                .findFirst()
-                .map(Sort.Order::getProperty)
-                .orElse("id");
-        if ("id".equalsIgnoreCase(propertyName) && StringUtils.hasText(value)) {
-            try {
-                addLog("find all", null, propertyName, value);
-                return repositoryGeneric.findById(UUID.fromString(value), pageable)
-                        .map(this::addHateoas);
-            } catch (IllegalArgumentException e){
-                log.debug("Value '{}' is not a valid UUID, falling back to property search", value);
-            }
-        }
-        try {
-            Entity object = entity.getDeclaredConstructor().newInstance();
-            ExampleMatcher exampleMatcher = matching()
-                    .withIgnoreNullValues()
-                    .withIgnoreCase()
-                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-            Field field = ReflectionUtils.findField(entity, propertyName);
-            String setterName = "set" + StringUtils.capitalize(propertyName);
-            Method setter = object.getClass().getDeclaredMethod(setterName, field.getType());
-            Object convertedValue = ConvertUtils.convert(value, field.getType());
-            setter.invoke(object, convertedValue);
-            Example<Entity> example = Example.of(object, exampleMatcher);
-            return repositoryGeneric.findAll(example, pageable).map(this::addHateoas);
-        } catch (Exception exception) {
-            log.warn("Error searching {} by {}: {}", entity.getSimpleName(), propertyName, exception.getMessage());
-            return repositoryGeneric.findAll(pageable).map(this::addHateoas);
-        }
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public DTOResponse findById(UUID id){
-        Entity entity = existsEntity("find by ID", id);
-        addLog("find by ID", id, null, null);
-        return addHateoas(entity);
-    }
-
-    @Override
-    @Transactional
-    public DTOResponse update(UUID id, DTORequest updated){
-        Entity entity = existsEntity("update", id);
-        mapper.updateEntity(updated, entity);
-        Entity ratified = repositoryGeneric.save(entity);
-        addLog("update", id, null, null);
-        return addHateoas(ratified);
-    }
-
-    @Override
-    @Transactional(readOnly = false)
-    public DTOResponse softDelete(UUID id){
-        Entity entity = existsEntity("soft delete", id);
-        entity.setDeletedAt(LocalDateTime.now());
-        repositoryGeneric.save(entity);
-        addLog("soft delete", id, null, null);
-        return addHateoas(entity);
-    }
-
-    @Override
-    @Transactional(readOnly = false)
-    public DTOResponse restore(UUID id){
-        Entity entity = existsEntity("restore", id);
-        entity.setDeletedAt(null);
-        repositoryGeneric.save(entity);
-        addLog("restore", id, null, null);
-        return addHateoas(entity);
-    }
-
-    @Override
-    @Transactional
-    public DTOResponse hardDelete(UUID id){
-        Entity entity = existsEntity("hard delete", id);
-        repositoryGeneric.delete(entity);
-        addLog("hard delete", id, null, null);
-        return addHateoas(entity);
     }
 
     /**
