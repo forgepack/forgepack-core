@@ -102,8 +102,8 @@ public abstract class GenericAuditEntity implements Serializable {
      * {@code AuditorAware} implementation.</p>
      */
     @CreatedBy
-    @JoinColumn(updatable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(updatable = false)
+    // @ManyToOne(fetch = FetchType.LAZY)
     private String createdBy;
     /**
      * User responsible for the last modification of the entity.
@@ -111,7 +111,7 @@ public abstract class GenericAuditEntity implements Serializable {
      * <p>Automatically updated via {@link LastModifiedBy}.</p>
      */
     @LastModifiedBy
-    @ManyToOne(fetch = FetchType.LAZY)
+    // @ManyToOne(fetch = FetchType.LAZY)
     private String modifiedBy;
 
     public void setDeletedAt(LocalDateTime deletedAt) {

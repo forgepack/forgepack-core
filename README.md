@@ -15,7 +15,7 @@
 
 ## Description
 
-_forgepack-core_ is a Spring Boot auto-configuration library that {DESCRIPTION}.
+_forgepack-core_ is a Spring Boot default auto-configuration library that.
 
 ## SUMMARY
 - [1. Installation](#1-installation)

@@ -21,6 +21,13 @@ public abstract class ControllerCrudRestorableImpl<Entity extends GenericAuditEn
         this.ServiceCrudRestorable = serviceCrudRestorable;
     }
 //    @PreAuthorize("hasAnyRole('ADMIN') and hasAnyAuthority('user:delete')")
+    @DeleteMapping("/{id}")
+    @Override
+    public ResponseEntity<Void> softDelete(@PathVariable UUID id){
+        ServiceCrudRestorable.softDelete(id);
+        return ResponseEntity.noContent().build();
+    }
+//    @PreAuthorize("hasAnyRole('ADMIN') and hasAnyAuthority('user:delete')")
     @DeleteMapping("/{id}/permanent")
     public ResponseEntity<Void> hardDelete(@PathVariable UUID id){
         ServiceCrudRestorable.hardDelete(id);

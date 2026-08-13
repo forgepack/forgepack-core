@@ -30,17 +30,17 @@ import org.slf4j.LoggerFactory;
  * @see Mapper
  */
 public abstract class ServiceCrudMutableImpl<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
+    extends ServiceUtils<Entity, DTORequest, DTOResponse>
     implements ServiceCrudMutable<Entity, DTORequest, DTOResponse> {
 
     private final Class<Entity> entity;
     private final RepositoryCrud<Entity> repositoryGeneric;
     private final Mapper<Entity, DTORequest, DTOResponse> mapper;
-    private final ServiceUtils<Entity, DTORequest, DTOResponse> serviceUtils;
     private static final Logger log = LoggerFactory.getLogger(ServiceCrudMutableImpl.class);
 
     public ServiceCrudMutableImpl(Class<Entity> entity, RepositoryCrud<Entity> repositoryGeneric, Mapper<Entity, DTORequest, DTOResponse> mapper) {
+        super(entity, repositoryGeneric, mapper);
         this.entity = entity;
-        this.serviceUtils = new ServiceUtils<>(entity, repositoryGeneric, mapper) {};
         this.repositoryGeneric = repositoryGeneric;
         this.mapper = mapper;
     }
@@ -49,17 +49,17 @@ public abstract class ServiceCrudMutableImpl<Entity extends GenericAuditEntity, 
     @Transactional
     public DTOResponse create(DTORequest created){
         Entity entity = repositoryGeneric.save(mapper.toEntity(created));
-        serviceUtils.addLog("create", entity.getId(), null, null);
-        return serviceUtils.addHateoas(entity);
+        addLog("create", entity.getId(), null, null);
+        return addHateoas(entity);
     }
 
     @Override
     @Transactional
     public DTOResponse update(UUID id, DTORequest updated){
-        Entity entity = serviceUtils.existsEntity("update", id);
+        Entity entity = existsEntity("update", id);
         mapper.updateEntity(updated, entity);
         Entity ratified = repositoryGeneric.save(entity);
-        serviceUtils.addLog("update", id, null, null);
-        return serviceUtils.addHateoas(ratified);
+        addLog("update", id, null, null);
+        return addHateoas(ratified);
     }
 }

@@ -42,19 +42,19 @@ import static org.springframework.data.domain.ExampleMatcher.matching;
  * @see Mapper
  */
 public abstract class ServiceCrudReadImpl<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
+    extends ServiceUtils<Entity, DTORequest, DTOResponse>
     implements ServiceCrudRead<Entity, DTOResponse> {
 
     private final Class<Entity> entity;
     private final RepositoryCrud<Entity> repositoryGeneric;
     private final Mapper<Entity, DTORequest, DTOResponse> mapper;
-    private final ServiceUtils<Entity, DTORequest, DTOResponse> serviceUtils;
     private static final Logger log = LoggerFactory.getLogger(ServiceCrudReadImpl.class);
 
     public ServiceCrudReadImpl(Class<Entity> entity, RepositoryCrud<Entity> repositoryGeneric, Mapper<Entity, DTORequest, DTOResponse> mapper) {
-        this.mapper = mapper;
+        super(entity, repositoryGeneric, mapper);
         this.entity = entity;
         this.repositoryGeneric = repositoryGeneric;
-        this.serviceUtils = new ServiceUtils<>(entity, repositoryGeneric, mapper) {};
+        this.mapper = mapper;
     }
 
     @Override
@@ -66,9 +66,9 @@ public abstract class ServiceCrudReadImpl<Entity extends GenericAuditEntity, DTO
                 .orElse("id");
         if ("id".equalsIgnoreCase(propertyName) && StringUtils.hasText(value)) {
             try {
-                serviceUtils.addLog("find all", null, propertyName, value);
+                addLog("find all", null, propertyName, value);
                 return repositoryGeneric.findById(UUID.fromString(value), pageable)
-                        .map(serviceUtils::addHateoas);
+                        .map(this::addHateoas);
             } catch (IllegalArgumentException e){
                 log.debug("Value '{}' is not a valid UUID, falling back to property search", value);
             }
@@ -85,18 +85,18 @@ public abstract class ServiceCrudReadImpl<Entity extends GenericAuditEntity, DTO
             Object convertedValue = ConvertUtils.convert(value, field.getType());
             setter.invoke(object, convertedValue);
             Example<Entity> example = Example.of(object, exampleMatcher);
-            return repositoryGeneric.findAll(example, pageable).map(serviceUtils::addHateoas);
+            return repositoryGeneric.findAll(example, pageable).map(this::addHateoas);
         } catch (Exception exception) {
             log.warn("Error searching {} by {}: {}", entity.getSimpleName(), propertyName, exception.getMessage());
-            return repositoryGeneric.findAll(pageable).map(serviceUtils::addHateoas);
+            return repositoryGeneric.findAll(pageable).map(this::addHateoas);
         }
     }
 
     @Override
     @Transactional(readOnly = true)
     public DTOResponse findById(UUID id){
-        Entity entity = serviceUtils.existsEntity("find by ID", id);
-        serviceUtils.addLog("find by ID", id, null, null);
-        return serviceUtils.addHateoas(entity);
+        Entity entity = existsEntity("find by ID", id);
+        addLog("find by ID", id, null, null);
+        return addHateoas(entity);
     }
 }

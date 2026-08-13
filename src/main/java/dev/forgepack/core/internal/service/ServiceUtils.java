@@ -45,7 +45,7 @@ import static org.springframework.data.domain.ExampleMatcher.matching;
  * @see RepositoryCrud
  * @see Mapper
  */
-public abstract class ServiceUtils<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>> {
+public class ServiceUtils<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>> {
 
     private final Class<Entity> entity;
     private final RepositoryCrud<Entity> repositoryGeneric;

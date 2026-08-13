@@ -36,47 +36,47 @@ import org.slf4j.LoggerFactory;
  * @see Mapper
  */
 public abstract class ServiceCrudRestorableImpl<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
+    extends ServiceUtils<Entity, DTORequest, DTOResponse>
     implements ServiceCrudRestorable<Entity, DTOResponse> {
 
     private final Class<Entity> entity;
     private final RepositoryCrud<Entity> repositoryGeneric;
     private final Mapper<Entity, DTORequest, DTOResponse> mapper;
-    private final ServiceUtils<Entity, DTORequest, DTOResponse> serviceUtils;
     private static final Logger log = LoggerFactory.getLogger(ServiceCrudRestorableImpl.class);
 
     public ServiceCrudRestorableImpl(Class<Entity> entity, RepositoryCrud<Entity> repositoryGeneric, Mapper<Entity, DTORequest, DTOResponse> mapper) {
+        super(entity, repositoryGeneric, mapper);
         this.entity = entity;
         this.repositoryGeneric = repositoryGeneric;
         this.mapper = mapper;
-        this.serviceUtils = new ServiceUtils<>(entity, repositoryGeneric, mapper) {};
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public DTOResponse softDelete(UUID id){
-        Entity entity = serviceUtils.existsEntity("soft delete", id);
+        Entity entity = existsEntity("soft delete", id);
         entity.setDeletedAt(LocalDateTime.now());
         repositoryGeneric.save(entity);
-        serviceUtils.addLog("soft delete", id, null, null);
-        return serviceUtils.addHateoas(entity);
+        addLog("soft delete", id, null, null);
+        return addHateoas(entity);
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public DTOResponse restore(UUID id){
-        Entity entity = serviceUtils.existsEntity("restore", id);
+        Entity entity = existsEntity("restore", id);
         entity.setDeletedAt(null);
         repositoryGeneric.save(entity);
-        serviceUtils.addLog("restore", id, null, null);
-        return serviceUtils.addHateoas(entity);
+        addLog("restore", id, null, null);
+        return addHateoas(entity);
     }
 
     @Override
     @Transactional
     public DTOResponse hardDelete(UUID id){
-        Entity entity = serviceUtils.existsEntity("hard delete", id);
+        Entity entity = existsEntity("hard delete", id);
         repositoryGeneric.delete(entity);
-        serviceUtils.addLog("hard delete", id, null, null);
-        return serviceUtils.addHateoas(entity);
+        addLog("hard delete", id, null, null);
+        return addHateoas(entity);
     }
 }
