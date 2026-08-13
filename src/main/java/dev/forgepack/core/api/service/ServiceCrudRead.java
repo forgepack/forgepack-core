@@ -29,7 +29,6 @@ import java.util.UUID;
  * such as HATEOAS links.</p>
  *
  * @param <Entity> domain entity type
- * @param <DTORequest> DTO used for create and update operations
  * @param <DTOResponse> DTO returned in service responses
  *
  * @author Marcelo Ribeiro Gadelha
