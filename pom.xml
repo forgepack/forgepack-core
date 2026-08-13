@@ -54,6 +54,12 @@
 			<artifactId>forgepack-validation</artifactId>
 			<version>0.0.5</version>
 		</dependency>
+		<!-- Test: open source testing framework -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<!-- Hibernate Envers: provides auditing -->
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
