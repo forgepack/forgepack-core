@@ -28,7 +28,7 @@ import java.util.UUID;
  * @see Mapper
  */
 public abstract class ServiceCrudMutableImpl<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
-    extends ServiceUtils<Entity, DTORequest, DTOResponse>
+    extends ServiceCrudReadImpl<Entity, DTORequest, DTOResponse>
     implements ServiceCrudMutable<Entity, DTORequest, DTOResponse> {
 
     private final Class<Entity> entity;

@@ -14,12 +14,14 @@ import java.net.URI;
 import java.util.UUID;
 
 public abstract class ControllerCrudMutableImpl<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends DTOIdentifiable<UUID>>
-        implements ControllerCrudMutable<DTORequest, DTOResponse> {
+    extends ControllerCrudReadImpl<Entity, DTORequest, DTOResponse>    
+    implements ControllerCrudMutable<DTORequest, DTOResponse> {
 
     private final Class<Entity> entityClass;
     private final ServiceCrudMutable<Entity, DTORequest, DTOResponse> serviceCrudMutable;
 
     public ControllerCrudMutableImpl(Class<Entity> entityClass, ServiceCrudMutable<Entity, DTORequest, DTOResponse> serviceCrudMutable) {
+        super(entityClass, serviceCrudMutable);
         this.entityClass = entityClass;
         this.serviceCrudMutable = serviceCrudMutable;
     }

@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.UUID;
 
 public abstract class ControllerCrudRestorableImpl<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends DTOIdentifiable<UUID>>
+    extends ControllerCrudMutableImpl<Entity, DTORequest, DTOResponse>
     implements ControllerCrudRestorable<DTORequest, DTOResponse> {
 
     private final Class<Entity> entityClass;
     private final ServiceCrudRestorable<Entity, DTORequest, DTOResponse> ServiceCrudRestorable;
 
     public ControllerCrudRestorableImpl(Class<Entity> entityClass, ServiceCrudRestorable<Entity, DTORequest, DTOResponse> serviceCrudRestorable) {
+        super(entityClass, serviceCrudRestorable);
         this.entityClass = entityClass;
         this.ServiceCrudRestorable = serviceCrudRestorable;
     }
