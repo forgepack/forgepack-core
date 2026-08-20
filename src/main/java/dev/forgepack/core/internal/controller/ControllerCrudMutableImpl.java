@@ -3,7 +3,7 @@ package dev.forgepack.core.internal.controller;
 import dev.forgepack.core.api.controller.ControllerCrudMutable;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.service.ServiceCrudMutable;
-import dev.forgepack.core.internal.model.GenericAuditEntity;
+import dev.forgepack.core.internal.model.EntityCrud;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.UUID;
 
-public abstract class ControllerCrudMutableImpl<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends DTOIdentifiable<UUID>>
+public abstract class ControllerCrudMutableImpl<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends DTOIdentifiable<UUID>>
         implements ControllerCrudMutable<DTORequest, DTOResponse> {
 
     private final Class<Entity> entityClass;

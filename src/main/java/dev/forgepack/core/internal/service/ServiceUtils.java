@@ -4,37 +4,25 @@ import dev.forgepack.core.api.mapper.Mapper;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.repository.RepositoryCrud;
 import dev.forgepack.core.api.service.ServiceCrudMutable;
-import dev.forgepack.core.internal.model.GenericAuditEntity;
+import dev.forgepack.core.internal.model.EntityCrud;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.util.StringUtils;
-import org.apache.commons.beanutils.ConvertUtils;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static org.springframework.data.domain.ExampleMatcher.matching;
 
 /**
  * Default implementation of {@link ServiceCrudMutable}.
  *
  * <p>Delegates persistence to a {@link RepositoryCrud} and conversion to a
  * {@link Mapper}. Enriches response DTOs with HATEOAS self links via
- * {@link #addHateoas(GenericAuditEntity)}.</p>
+ * {@link #addHateoas(EntityCrud)}.</p>
  *
- * @param <Entity> domain entity type extending {@link GenericAuditEntity}
+ * @param <Entity> domain entity type extending {@link EntityCrud}
  * @param <DTORequest> request DTO extending {@link DTOIdentifiable}, used for create and update operations
  * @param <DTOResponse> response DTO extending {@link RepresentationModel}, returned by service operations
  *
@@ -45,7 +33,7 @@ import static org.springframework.data.domain.ExampleMatcher.matching;
  * @see RepositoryCrud
  * @see Mapper
  */
-public class ServiceUtils<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>> {
+public class ServiceUtils<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>> {
 
     private final Class<Entity> entity;
     private final RepositoryCrud<Entity> repositoryGeneric;

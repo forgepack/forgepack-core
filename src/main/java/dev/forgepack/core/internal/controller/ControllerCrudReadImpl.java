@@ -3,7 +3,7 @@ package dev.forgepack.core.internal.controller;
 import dev.forgepack.core.api.controller.ControllerCrudRead;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.service.ServiceCrudRead;
-import dev.forgepack.core.internal.model.GenericAuditEntity;
+import dev.forgepack.core.internal.model.EntityCrud;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.UUID;
 
-public abstract class ControllerCrudReadImpl<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends DTOIdentifiable<UUID>>
+public abstract class ControllerCrudReadImpl<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends DTOIdentifiable<UUID>>
         implements ControllerCrudRead<DTOResponse> {
 
     private final Class<Entity> entityClass;

@@ -5,7 +5,7 @@ import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.repository.RepositoryCrud;
 import dev.forgepack.core.api.service.ServiceCrudMutable;
 import dev.forgepack.core.api.service.ServiceCrudRead;
-import dev.forgepack.core.internal.model.GenericAuditEntity;
+import dev.forgepack.core.internal.model.EntityCrud;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Example;
@@ -28,9 +28,9 @@ import static org.springframework.data.domain.ExampleMatcher.matching;
  *
  * <p>Delegates persistence to a {@link RepositoryCrud} and conversion to a
  * {@link Mapper}. Enriches response DTOs with HATEOAS self links via
- * {@link #addHateoas(GenericAuditEntity)}.</p>
+ * {@link #addHateoas(EntityCrud)}.</p>
  *
- * @param <Entity> domain entity type extending {@link GenericAuditEntity}
+ * @param <Entity> domain entity type extending {@link EntityCrud}
  * @param <DTORequest> request DTO extending {@link DTOIdentifiable}, used for create and update operations
  * @param <DTOResponse> response DTO extending {@link RepresentationModel}, returned by service operations
  *
@@ -41,7 +41,7 @@ import static org.springframework.data.domain.ExampleMatcher.matching;
  * @see RepositoryCrud
  * @see Mapper
  */
-public abstract class ServiceCrudReadImpl<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
+public abstract class ServiceCrudReadImpl<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
     extends ServiceUtils<Entity, DTORequest, DTOResponse>
     implements ServiceCrudRead<Entity, DTOResponse> {
 

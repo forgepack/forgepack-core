@@ -3,7 +3,7 @@ package dev.forgepack.core.internal.service;
 import dev.forgepack.core.api.mapper.Mapper;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.repository.RepositoryCrud;
-import dev.forgepack.core.internal.model.GenericAuditEntity;
+import dev.forgepack.core.internal.model.EntityCrud;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -110,7 +110,7 @@ class ServiceCrudReadImplTest {
 
     // --- fixtures ---
 
-    static class TestEntity extends GenericAuditEntity {
+    static class TestEntity extends EntityCrud {
         private String name;
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }

@@ -57,7 +57,7 @@ import java.util.UUID;
 @Audited
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class GenericAuditEntity implements Serializable {
+public abstract class EntityCrud implements Serializable {
 
     /**
      * Unique identifier of the entity.
@@ -140,7 +140,7 @@ public abstract class GenericAuditEntity implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GenericAuditEntity that)) return false;
+        if (!(o instanceof EntityCrud that)) return false;
         return Objects.equals(id, that.id);
     }
     @Override

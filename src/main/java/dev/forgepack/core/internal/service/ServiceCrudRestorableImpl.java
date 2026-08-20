@@ -5,26 +5,20 @@ import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.repository.RepositoryCrud;
 import dev.forgepack.core.api.service.ServiceCrudMutable;
 import dev.forgepack.core.api.service.ServiceCrudRestorable;
-import dev.forgepack.core.internal.model.GenericAuditEntity;
-import jakarta.persistence.EntityNotFoundException;
+import dev.forgepack.core.internal.model.EntityCrud;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of {@link ServiceCrudMutable}.
  *
  * <p>Delegates persistence to a {@link RepositoryCrud} and conversion to a
  * {@link Mapper}. Enriches response DTOs with HATEOAS self links via
- * {@link #addHateoas(GenericAuditEntity)}.</p>
+ * {@link #addHateoas(EntityCrud)}.</p>
  *
- * @param <Entity> domain entity type extending {@link GenericAuditEntity}
+ * @param <Entity> domain entity type extending {@link EntityCrud}
  * @param <DTORequest> request DTO extending {@link DTOIdentifiable}, used for create and update operations
  * @param <DTOResponse> response DTO extending {@link RepresentationModel}, returned by service operations
  *
@@ -35,14 +29,13 @@ import org.slf4j.LoggerFactory;
  * @see RepositoryCrud
  * @see Mapper
  */
-public abstract class ServiceCrudRestorableImpl<Entity extends GenericAuditEntity, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
+public abstract class ServiceCrudRestorableImpl<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
     extends ServiceUtils<Entity, DTORequest, DTOResponse>
     implements ServiceCrudRestorable<Entity, DTOResponse> {
 
     private final Class<Entity> entity;
     private final RepositoryCrud<Entity> repositoryGeneric;
     private final Mapper<Entity, DTORequest, DTOResponse> mapper;
-    private static final Logger log = LoggerFactory.getLogger(ServiceCrudRestorableImpl.class);
 
     public ServiceCrudRestorableImpl(Class<Entity> entity, RepositoryCrud<Entity> repositoryGeneric, Mapper<Entity, DTORequest, DTOResponse> mapper) {
         super(entity, repositoryGeneric, mapper);
