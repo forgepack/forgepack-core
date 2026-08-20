@@ -28,12 +28,13 @@ import java.util.UUID;
  *     <li>Implementations should ensure consistency with the underlying data model</li>
  * </ul>
  *
+ * @param <DTORequest> type representing the request payload
  * @param <DTOResponse> type representing the response payload
  *
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  */
-public interface ControllerCrudRestorable<DTOResponse> {
+public interface ControllerCrudRestorable<DTORequest, DTOResponse> extends ControllerCrudMutable<DTORequest, DTOResponse> {
 
     /**
      * Deletes a resource by its unique identifier.

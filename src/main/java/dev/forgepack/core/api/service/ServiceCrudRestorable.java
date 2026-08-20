@@ -25,6 +25,7 @@ import java.util.UUID;
  * such as HATEOAS links.</p>
  *
  * @param <Entity> domain entity type
+ * @param <DTORequest> DTO used for create and update operations
  * @param <DTOResponse> DTO returned in service responses
  *
  * @author Marcelo Ribeiro Gadelha
@@ -33,7 +34,7 @@ import java.util.UUID;
  * @see Mapper
  * @see RepositoryCrud
  */
-public interface ServiceCrudRestorable<Entity, DTOResponse> {
+public interface ServiceCrudRestorable<Entity, DTORequest, DTOResponse> extends ServiceCrudMutable<Entity, DTORequest, DTOResponse> {
 
     /**
      * Soft deletes an entity identified by the specified identifier.

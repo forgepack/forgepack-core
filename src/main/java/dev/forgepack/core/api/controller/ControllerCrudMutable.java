@@ -31,7 +31,7 @@ import java.util.UUID;
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  */
-public interface ControllerCrudMutable<DTORequest, DTOResponse> {
+public interface ControllerCrudMutable<DTORequest, DTOResponse> extends ControllerCrudRead<DTOResponse> {
 
     /**
      * Creates a new resource.

@@ -31,7 +31,7 @@ import java.util.UUID;
  */
 public abstract class ServiceCrudRestorableImpl<Entity extends EntityCrud, DTORequest extends DTOIdentifiable<UUID>, DTOResponse extends RepresentationModel<DTOResponse>>
     extends ServiceUtils<Entity, DTORequest, DTOResponse>
-    implements ServiceCrudRestorable<Entity, DTOResponse> {
+    implements ServiceCrudRestorable<Entity, DTORequest, DTOResponse> {
 
     private final Class<Entity> entity;
     private final RepositoryCrud<Entity> repositoryGeneric;

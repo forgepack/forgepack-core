@@ -34,7 +34,7 @@ import java.util.UUID;
  * @see Mapper
  * @see RepositoryCrud
  */
-public interface ServiceCrudMutable<Entity, DTORequest, DTOResponse> {
+public interface ServiceCrudMutable<Entity, DTORequest, DTOResponse> extends ServiceCrudRead<Entity, DTOResponse> {
 
     /**
      * Creates and persists a new entity based on the provided {@link DTORequest}.
