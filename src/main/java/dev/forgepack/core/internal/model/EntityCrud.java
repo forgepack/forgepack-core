@@ -1,5 +1,6 @@
 package dev.forgepack.core.internal.model;
 
+import dev.forgepack.core.api.model.EntityCrud;
 import jakarta.persistence.*;
 import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
@@ -57,7 +58,7 @@ import java.util.UUID;
 @Audited
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class EntityCrud implements Serializable {
+public abstract class EntityCrud implements Serializable, EntityCrud {
 
     /**
      * Unique identifier of the entity.
