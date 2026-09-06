@@ -4,7 +4,7 @@ import dev.forgepack.core.api.mapper.Mapper;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.repository.RepositoryCrud;
 import dev.forgepack.core.api.service.ServiceCrudMutable;
-import dev.forgepack.core.internal.model.EntityCrud;
+import dev.forgepack.core.api.model.EntityCrud;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.hateoas.RepresentationModel;
 import java.util.UUID;

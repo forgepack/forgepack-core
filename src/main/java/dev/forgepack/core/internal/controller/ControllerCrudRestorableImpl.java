@@ -3,7 +3,7 @@ package dev.forgepack.core.internal.controller;
 import dev.forgepack.core.api.controller.ControllerCrudRestorable;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.service.ServiceCrudRestorable;
-import dev.forgepack.core.internal.model.EntityCrud;
+import dev.forgepack.core.api.model.EntityCrud;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;

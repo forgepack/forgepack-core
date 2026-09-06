@@ -1,9 +1,9 @@
 package dev.forgepack.core.internal.controller;
 
 import dev.forgepack.core.api.controller.ControllerCrudMutable;
+import dev.forgepack.core.api.model.EntityCrud;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.service.ServiceCrudMutable;
-import dev.forgepack.core.internal.model.EntityCrud;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

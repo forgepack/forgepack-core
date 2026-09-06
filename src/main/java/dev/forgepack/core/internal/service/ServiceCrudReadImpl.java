@@ -5,7 +5,7 @@ import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.repository.RepositoryCrud;
 import dev.forgepack.core.api.service.ServiceCrudMutable;
 import dev.forgepack.core.api.service.ServiceCrudRead;
-import dev.forgepack.core.internal.model.EntityCrud;
+import dev.forgepack.core.api.model.EntityCrud;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Example;

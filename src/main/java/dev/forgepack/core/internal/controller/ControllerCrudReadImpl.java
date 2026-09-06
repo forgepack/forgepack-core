@@ -3,7 +3,7 @@ package dev.forgepack.core.internal.controller;
 import dev.forgepack.core.api.controller.ControllerCrudRead;
 import dev.forgepack.core.api.payload.DTOIdentifiable;
 import dev.forgepack.core.api.service.ServiceCrudRead;
-import dev.forgepack.core.internal.model.EntityCrud;
+import dev.forgepack.core.api.model.EntityCrud;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
