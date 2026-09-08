@@ -107,4 +107,22 @@ public class ServiceUtils<Entity extends EntityCrud, DTORequest extends DTOIdent
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Cannot %s: %s not found with ID %s", action, entity.getSimpleName(), id)));
     }
+
+    /**
+     * Looks up a non-deleted entity by its identifier, throwing if absent.
+     *
+     * <p>Only entities whose {@code deletedAt} field is {@code null} are considered.
+     * Used internally before any mutating operation to guarantee the entity exists.</p>
+     *
+     * @param action description of the calling operation, used in the exception message
+     * @param id     identifier of the entity to look up
+     * @return the found {@link Entity}
+     * @throws EntityNotFoundException if no active entity exists with the given {@code id}
+     */
+    @Transactional(readOnly = true)
+    protected Entity existsDeletedEntity(String action, UUID id) {
+        return repositoryGeneric.findByIdAndDeletedAtIsNotNull(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Cannot %s: %s not found with ID %s", action, entity.getSimpleName(), id)));
+    }
 }

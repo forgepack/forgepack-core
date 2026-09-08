@@ -65,6 +65,18 @@ public interface RepositoryCrud<T> extends JpaRepository<T, UUID> {
     Optional<T> findByIdAndDeletedAtIsNull(UUID id);
 
     /**
+     * Retrieves a non-deleted entity by its unique identifier.
+     *
+     * <p>This method is typically used to fetch active (non-soft-deleted) entities,
+     * excluding those with a non-null {@code deletedAt} timestamp.</p>
+     *
+     * @param id identifier of the entity to retrieve
+     * @return an {@link Optional} containing the matching entity, or empty if
+     *         not found or already soft-deleted
+     */
+    Optional<T> findByIdAndDeletedAtIsNotNull(UUID id);
+
+    /**
      * Retrieves a paginated result filtered by ID and ordered by ID ascending.
      *
      * <p>Although ordering is redundant when filtering by a unique identifier,

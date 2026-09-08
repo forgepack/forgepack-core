@@ -57,7 +57,7 @@ public abstract class ServiceCrudRestorableImpl<Entity extends EntityCrud, DTORe
     @Override
     @Transactional
     public DTOResponse restore(UUID id){
-        Entity entity = existsEntity("restore", id);
+        Entity entity = existsDeletedEntity("restore", id);
         entity.setDeletedAt(null);
         repositoryGeneric.save(entity);
         addLog("restore", id, null, null);
