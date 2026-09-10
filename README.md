@@ -1,12 +1,12 @@
+<div align="center">
+
 # _forgepack-core_
+
 [![GitHub stars](https://img.shields.io/github/stars/forgepack/forgepack-core?style=social)](https://github.com/forgepack/forgepack-core)
 [![GitHub forks](https://img.shields.io/github/forks/forgepack/forgepack-core?style=social)](https://github.com/forgepack/forgepack-core/fork)
 [![GitHub watchers](https://img.shields.io/github/watchers/forgepack/forgepack-core?style=social)](https://github.com/forgepack/forgepack-core)
 
-![GitHub last commit](https://img.shields.io/github/last-commit/forgepack/forgepack-core)
-![Maven Central](https://img.shields.io/maven-central/v/dev.forgepack/core)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Test Coverage](https://img.shields.io/badge/coverage-0%25-red)
+</div>
 
 ## Tech Stack
 ![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk)
@@ -14,6 +14,10 @@
 ![Maven](https://img.shields.io/badge/Maven-3.8+-blue?logo=apachemaven)
 
 ## Description
+![GitHub last commit](https://img.shields.io/github/last-commit/forgepack/forgepack-core)
+![Maven Central](https://img.shields.io/maven-central/v/dev.forgepack/core)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![Test Coverage](https://img.shields.io/badge/coverage-0%25-red)
 
 _forgepack-core_ is a Spring Boot default auto-configuration library that.
 
@@ -22,7 +26,6 @@ _forgepack-core_ is a Spring Boot default auto-configuration library that.
 - [2. Usage](#2-usage)
 - [3. Auto-Configuration](#3-auto-configuration)
 - [4. Quality & Testing](#4-quality--testing)
-- [5. Artifact Coordinates](#5-artifact-coordinates)
 - [Developers](#developers)
 - [License](#license)
 
@@ -32,14 +35,14 @@ _forgepack-core_ is a Spring Boot default auto-configuration library that.
 ```xml
 <dependency>
     <groupId>dev.forgepack</groupId>
-    <artifactId>core</artifactId>
+    <artifactId>forgepack-core</artifactId>
     <version>{VERSION}</version>
 </dependency>
 ```
 
 ### 1.2. Gradle
 ```groovy
-implementation 'dev.forgepack:core:{VERSION}'
+implementation 'dev.forgepack:forgepack-core:{VERSION}'
 ```
 
 ## 2. USAGE
@@ -50,19 +53,46 @@ The library auto-configures itself via Spring Boot's auto-configuration mechanis
 
 ```java
 @SpringBootApplication
-public class MyApplication {
+public class DemoApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MyApplication.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 }
 ```
 
 ### 2.2. Configuration Properties
 
+### 2.2.1. Dependency declaration
 ```properties
 # application.properties
-forgepack.core.enabled=true
-forgepack.core.property-name=value
+
+# ╔══════════════════════════════════════════════╗
+# ║            Database Configuration            ║
+# ╚══════════════════════════════════════════════╝
+spring.datasource.url=${DATABASE_URL:jdbc:postgresql://localhost:5432/demo}
+spring.datasource.username=${USERNAME:postgres}
+spring.datasource.password=${PASSWORD:}
+spring.datasource.platform=${DATABASE_PLATFORM:postgres}
+spring.datasource.driver-class-name=${DATABASE_DRIVER:org.postgresql.Driver}
+
+# ╔══════════════════════════════════════════════╗
+# ║           Hibernate Configuration            ║
+# ╚══════════════════════════════════════════════╝
+spring.jpa.hibernate.ddl-auto=${DDL:create}
+spring.jpa.properties.hibernate.default_schema=${SCHEME:demo}
+```
+
+### 2.2.2. Plugin declaration
+```xml
+<!-- pom.xml -->
+    <build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 ```
 
 ## 3. AUTO-CONFIGURATION
@@ -80,13 +110,13 @@ Internal implementation details are encapsulated in `dev.forgepack.core.internal
 
 ### 4.1. Current Coverage Metrics
 
-GENERAL COVERAGE: 0%
-TOTAL NUMBER OF TESTS: 0
+GENERAL COVERAGE: 28%
+TOTAL NUMBER OF TESTS: 10
 
-| Package                                              | Coverage |        |
-|:-----------------------------------------------------|:--------:|:------:|
-| 📁 dev.forgepack.core.api                  |    0%    |   🔴   |
-| 📁 dev.forgepack.core.internal             |    0%    |   🔴   |
+| Package                                    |  Coverage |         |
+|:-------------------------------------------|:---------:|:-------:|
+| 📁 dev.forgepack.core.api                  |    12%    |   🔴   |
+| 📁 dev.forgepack.core.internal             |    57%    |   🟠   |
 
 ### 4.2. Types of Tests Implemented
 1. __Unit Tests__: Service and component layer
@@ -102,45 +132,10 @@ mvn test
 mvn clean test jacoco:report
 ```
 
-## 5. core COORDINATES
-
-### 5.1. Dependency declaration
-```xml
-<dependency>
-    <groupId>dev.forgepack</groupId>
-    <artifactId>core</artifactId>
-    <version>{VERSION}</version>
-</dependency>
-```
-
-### 5.2. Plugin declaration
-```xml
-<plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-    <executions>
-        <execution>
-            <goals>
-                <goal>build-info</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
-```
-
-### 5.3. Custom application properties
-```properties
-# ╔══════════════════════════════════════════════╗
-# ║         LIBRARY CONFIGURATION                ║
-# ╚══════════════════════════════════════════════╝
-forgepack.core.enabled=true
-forgepack.core.property-name=default-value
-```
-
 ## DEVELOPERS
 
 ### Contributors
-> _[Gadelha TI](https://github.com/gadelhati)_ - *Architect & Lead Developer*
+> _[Gadelha TI](https://github.com/gadelhati)_ - *Research Software Engineer · Software Architect · Lead Developer*
 
 ## LICENSE
 
@@ -170,7 +165,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-<div style="text-align: center;">
+<div align="center">
 
 __⭐ Did you like the project? Leave a star! ⭐__
 
