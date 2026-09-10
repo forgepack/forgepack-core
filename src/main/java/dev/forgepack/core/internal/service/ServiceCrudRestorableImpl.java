@@ -67,7 +67,7 @@ public abstract class ServiceCrudRestorableImpl<Entity extends EntityCrud, DTORe
     @Override
     @Transactional
     public DTOResponse hardDelete(UUID id){
-        Entity entity = existsEntity("hard delete", id);
+        Entity entity = existsDeletedEntity("hard delete", id);
         repositoryGeneric.delete(entity);
         addLog("hard delete", id, null, null);
         return addHateoas(entity);
