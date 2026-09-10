@@ -1,6 +1,9 @@
 package dev.forgepack.core.internal.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
+
 import org.jspecify.annotations.NullMarked;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.http.HttpHeaders;
@@ -120,6 +123,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 //        mav.addObject("message", "An unexpected error occurred.");
 //        return mav;
 //    }
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiError> handleEntityNotFound(
+            EntityNotFoundException ex, HttpServletRequest request) {
+        return buildApiError(HttpStatus.NOT_FOUND, "Resource not found", "id", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiError> handleConstraintViolation(
+            ConstraintViolationException ex, HttpServletRequest request) {
+        return buildApiError(HttpStatus.BAD_REQUEST, "Constraint violation", "id", ex.getMessage(), request);
+    }
     /**
      * Handles validation errors triggered by {@code @Valid}.
      *
