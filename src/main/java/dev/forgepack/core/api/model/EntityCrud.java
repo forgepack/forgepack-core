@@ -2,9 +2,7 @@ package dev.forgepack.core.api.model;
 
 import jakarta.persistence.*;
 import org.hibernate.envers.Audited;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -95,25 +93,6 @@ public abstract class EntityCrud implements Serializable {
      */
     private LocalDateTime deletedAt;
 
-    /**
-     * User responsible for creating the entity.
-     *
-     * <p>Automatically populated via {@link CreatedBy}, depending on the configured
-     * {@code AuditorAware} implementation.</p>
-     */
-    @CreatedBy
-    // @JoinColumn(updatable = false)
-    // @ManyToOne(fetch = FetchType.LAZY)
-    private String createdBy;
-    /**
-     * User responsible for the last modification of the entity.
-     *
-     * <p>Automatically updated via {@link LastModifiedBy}.</p>
-     */
-    @LastModifiedBy
-    // @ManyToOne(fetch = FetchType.LAZY)
-    private String modifiedBy;
-
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
@@ -129,12 +108,6 @@ public abstract class EntityCrud implements Serializable {
     }
     public LocalDateTime getDeletedAt() {
         return deletedAt;
-    }
-    public String getCreatedBy() {
-        return createdBy;
-    }
-    public String getModifiedBy() {
-        return modifiedBy;
     }
 
     @Override
