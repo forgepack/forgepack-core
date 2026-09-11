@@ -14,12 +14,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  * resolve the currently authenticated user as the entity auditor.
  *
  * <p>Activates {@code @CreatedBy} and {@code @LastModifiedBy} population on
- * audited entities via {@link ServiceAuditorAwareImpl}.</p>
+ * audited entities via {@link LocalDateTime}.</p>
  *
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  *
- * @see ServiceAuditorAwareImpl
+ * @see LocalDateTime
  */
 @Configuration
 @EnableJpaAuditing(dateTimeProviderRef = "dateTimeProvider")
@@ -29,7 +29,7 @@ public class ConfigurationAudit {
      * Provides the {@link AuditorAware} implementation that supplies the
      * current {@link String} for JPA auditing fields.
      *
-     * @return a new {@link ServiceAuditorAwareImpl} instance
+     * @return a new {@link LocalDateTime} instance
      */
     @Bean
     public DateTimeProvider dateTimeProvider() {
