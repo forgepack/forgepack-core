@@ -70,8 +70,8 @@ public class DemoApplication {
 # ║            Database Configuration            ║
 # ╚══════════════════════════════════════════════╝
 spring.datasource.url=${DATABASE_URL:jdbc:postgresql://localhost:5432/demo}
-spring.datasource.username=${USERNAME:postgres}
-spring.datasource.password=${PASSWORD:}
+spring.datasource.username=${DATABASE_USERNAME:postgres}
+spring.datasource.password=${DATABASE_PASSWORD:}
 spring.datasource.platform=${DATABASE_PLATFORM:postgres}
 spring.datasource.driver-class-name=${DATABASE_DRIVER:org.postgresql.Driver}
 
