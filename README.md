@@ -85,6 +85,7 @@ spring.jpa.properties.hibernate.default_schema=${SCHEME:demo}
 ### 2.2.2. Plugin declaration
 ```xml
 <!-- pom.xml -->
+
     <build>
 		<plugins>
 			<plugin>
