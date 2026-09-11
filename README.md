@@ -72,14 +72,13 @@ public class DemoApplication {
 spring.datasource.url=${DATABASE_URL:jdbc:postgresql://localhost:5432/demo}
 spring.datasource.username=${DATABASE_USERNAME:postgres}
 spring.datasource.password=${DATABASE_PASSWORD:}
-spring.datasource.platform=${DATABASE_PLATFORM:postgres}
 spring.datasource.driver-class-name=${DATABASE_DRIVER:org.postgresql.Driver}
 
 # ╔══════════════════════════════════════════════╗
 # ║           Hibernate Configuration            ║
 # ╚══════════════════════════════════════════════╝
 spring.jpa.hibernate.ddl-auto=${DDL:create}
-spring.jpa.properties.hibernate.default_schema=${SCHEME:demo}
+spring.jpa.properties.hibernate.default_schema=${SCHEME:public}
 ```
 
 ### 2.2.2. Plugin declaration
