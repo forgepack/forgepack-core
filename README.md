@@ -21,8 +21,7 @@
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/forgepack/forgepack-core)](https://github.com/forgepack/forgepack-core)
 [![Maven Central](https://img.shields.io/maven-central/v/dev.forgepack/forgepack-core)](https://central.sonatype.com/artifact/dev.forgepack/forgepack-core)
-[![Build status](https://github.com/forgepack/forgepack-core/actions/workflows/build.yml/badge.svg)](https://github.com/forgepack/forgepack-core/actions/workflows/build.yml)
-[![Build](https://github.com/forgepack/forgepack-core/actions/workflows/build.yml/badge.svg)](https://github.com/forgepack/forgepack-core/actions/workflows/build.yml)
+[![Build status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/forgepack/forgepack-core/actions/workflows/build.yml)
 
 _forgepack-core_ is a Spring Boot default auto-configuration library that.
 
