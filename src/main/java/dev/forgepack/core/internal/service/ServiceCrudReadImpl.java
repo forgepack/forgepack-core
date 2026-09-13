@@ -67,7 +67,7 @@ public abstract class ServiceCrudReadImpl<Entity extends EntityCrud, DTORequest 
         if ("id".equalsIgnoreCase(propertyName) && StringUtils.hasText(value)) {
             try {
                 addLog("find all", null, propertyName, value);
-                return repositoryGeneric.findById(UUID.fromString(value), pageable)
+                return repositoryGeneric.findByIdAndDeletedAtIsNull(UUID.fromString(value), pageable)
                         .map(this::addHateoas);
             } catch (IllegalArgumentException e){
                 log.debug("Value '{}' is not a valid UUID, falling back to property search", value);
@@ -85,10 +85,10 @@ public abstract class ServiceCrudReadImpl<Entity extends EntityCrud, DTORequest 
             Object convertedValue = ConvertUtils.convert(value, field.getType());
             setter.invoke(object, convertedValue);
             Example<Entity> example = Example.of(object, exampleMatcher);
-            return repositoryGeneric.findAll(example, pageable).map(this::addHateoas);
+            return repositoryGeneric.findAllAndDeletedAtIsNull(example, pageable).map(this::addHateoas);
         } catch (Exception exception) {
             log.warn("Error searching {} by {}: {}", entity.getSimpleName(), propertyName, exception.getMessage());
-            return repositoryGeneric.findAll(pageable).map(this::addHateoas);
+            return repositoryGeneric.findAllAndDeletedAtIsNull(pageable).map(this::addHateoas);
         }
     }
 

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.domain.Example;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -63,6 +64,10 @@ public interface RepositoryCrud<T> extends JpaRepository<T, UUID> {
      *         not found or already soft-deleted
      */
     Optional<T> findByIdAndDeletedAtIsNull(UUID id);
+
+    Page<T> findByIdAndDeletedAtIsNull(UUID id, Pageable pageable);
+    Page<T> findAllAndDeletedAtIsNull(Example<T> example, Pageable pageable);
+    Page<T> findAllAndDeletedAtIsNull(Pageable pageable);
 
     /**
      * Retrieves a non-deleted entity by its unique identifier.
