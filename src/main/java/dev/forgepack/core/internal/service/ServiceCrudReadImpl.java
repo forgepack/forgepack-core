@@ -85,10 +85,10 @@ public abstract class ServiceCrudReadImpl<Entity extends EntityCrud, DTORequest 
             Object convertedValue = ConvertUtils.convert(value, field.getType());
             setter.invoke(object, convertedValue);
             Example<Entity> example = Example.of(object, exampleMatcher);
-            return repositoryGeneric.findAllAndDeletedAtIsNull(example, pageable).map(this::addHateoas);
+            return repositoryGeneric.findAllByDeletedAtIsNull(example, pageable).map(this::addHateoas);
         } catch (Exception exception) {
             log.warn("Error searching {} by {}: {}", entity.getSimpleName(), propertyName, exception.getMessage());
-            return repositoryGeneric.findAllAndDeletedAtIsNull(pageable).map(this::addHateoas);
+            return repositoryGeneric.findAllByDeletedAtIsNull(pageable).map(this::addHateoas);
         }
     }
 

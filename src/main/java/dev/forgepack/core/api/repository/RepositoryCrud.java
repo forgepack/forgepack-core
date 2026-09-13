@@ -66,8 +66,8 @@ public interface RepositoryCrud<T> extends JpaRepository<T, UUID> {
     Optional<T> findByIdAndDeletedAtIsNull(UUID id);
 
     Page<T> findByIdAndDeletedAtIsNull(UUID id, Pageable pageable);
-    Page<T> findAllAndDeletedAtIsNull(Example<T> example, Pageable pageable);
-    Page<T> findAllAndDeletedAtIsNull(Pageable pageable);
+    Page<T> findAllByDeletedAtIsNull(Example<T> example, Pageable pageable);
+    Page<T> findAllByDeletedAtIsNull(Pageable pageable);
 
     /**
      * Retrieves a non-deleted entity by its unique identifier.

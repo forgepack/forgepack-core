@@ -65,11 +65,11 @@ class ServiceCrudReadImplTest {
     void findAll_idField_invalidUuid_fallsBackToFindAll() {
         // IllegalArgumentException from UUID.fromString → reflection fails for "id" → fallback
         Pageable pageable = PageRequest.of(0, 10);
-        given(repository.findAllAndDeletedAtIsNull(pageable)).willReturn(emptyPage);
+        given(repository.findAllByDeletedAtIsNull(pageable)).willReturn(emptyPage);
 
         service.findAll(pageable, "not-a-valid-uuid", TestEntity.class);
 
-        then(repository).should().findAllAndDeletedAtIsNull(pageable);
+        then(repository).should().findAllByDeletedAtIsNull(pageable);
         then(repository).should(never()).findAll(pageable);
         then(repository).should(never()).findById(any(UUID.class), any(Pageable.class));
     }
@@ -77,11 +77,11 @@ class ServiceCrudReadImplTest {
     @Test
     void findAll_namedField_withValue_callsFindAllWithExample() {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("name"));
-        given(repository.findAllAndDeletedAtIsNull(any(Example.class), any(Pageable.class))).willReturn(emptyPage);
+        given(repository.findAllByDeletedAtIsNull(any(Example.class), any(Pageable.class))).willReturn(emptyPage);
 
         service.findAll(pageable, "test", TestEntity.class);
 
-        then(repository).should().findAllAndDeletedAtIsNull(any(Example.class), any(Pageable.class));
+        then(repository).should().findAllByDeletedAtIsNull(any(Example.class), any(Pageable.class));
         then(repository).should(never()).findAll(any(Example.class), any(Pageable.class));
         then(repository).should(never()).findAll(any(Pageable.class));
     }
@@ -90,11 +90,11 @@ class ServiceCrudReadImplTest {
     void findAll_nonExistentField_fallsBackToFindAll() {
         // ReflectionUtils.findField returns null → NPE on field.getType() → fallback
         Pageable pageable = PageRequest.of(0, 10, Sort.by("nonExistentField"));
-        given(repository.findAllAndDeletedAtIsNull(pageable)).willReturn(emptyPage);
+        given(repository.findAllByDeletedAtIsNull(pageable)).willReturn(emptyPage);
 
         service.findAll(pageable, "value", TestEntity.class);
 
-        then(repository).should().findAllAndDeletedAtIsNull(pageable);
+        then(repository).should().findAllByDeletedAtIsNull(pageable);
         then(repository).should(never()).findAll(pageable);
         then(repository).should(never()).findAll(any(Example.class), any(Pageable.class));
     }
@@ -103,11 +103,11 @@ class ServiceCrudReadImplTest {
     void findAll_noValue_fallsBackToFindAll() {
         // StringUtils.hasText(null) = false → skips UUID branch; setId absent → fallback
         Pageable pageable = PageRequest.of(0, 10);
-        given(repository.findAllAndDeletedAtIsNull(pageable)).willReturn(emptyPage);
+        given(repository.findAllByDeletedAtIsNull(pageable)).willReturn(emptyPage);
 
         service.findAll(pageable, null, TestEntity.class);
 
-        then(repository).should().findAllAndDeletedAtIsNull(pageable);
+        then(repository).should().findAllByDeletedAtIsNull(pageable);
         then(repository).should(never()).findAll(pageable);
         then(repository).should(never()).findById(any(UUID.class), any(Pageable.class));
         then(repository).should(never()).findAll(any(Example.class), any(Pageable.class));
