@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.naming.AuthenticationException;
+// import org.springframework.security.core.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,10 +77,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(status, title, request.getRequestURI(), validationErrors);
         return new ResponseEntity<>(apiError, status);
     }
-//    @ExceptionHandler(BadCredentialsException.class)
-//    public ResponseEntity<ApiError> handleBadCredentialsException(BadCredentialsException exception, HttpServletRequest request) {
-//        return buildApiError(HttpStatus.UNAUTHORIZED, "Invalid credentials", "Credentials", exception.getMessage(), request);
-//    }
+
     /**
      * Handles authentication-related exceptions.
      *
@@ -88,14 +85,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request current HTTP request
      * @return standardized error response with HTTP 401 (Unauthorized)
      */
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ApiError> handleAuthenticationException(AuthenticationException exception, HttpServletRequest request) {
-        return buildApiError(HttpStatus.UNAUTHORIZED, "Authentication failed", "Authentication", exception.getMessage(), request);
-    }
-//    @ExceptionHandler(ResourceNotFoundException.class)
-//    public ResponseEntity<ApiError> handleResourceNotFound(ResourceNotFoundException exception, HttpServletRequest request) {
-//        return buildApiError(HttpStatus.NOT_FOUND, "Resource not found", "resource", exception.getMessage(), request);
-//    }
+    // @ExceptionHandler(AuthenticationException.class)
+    // public ResponseEntity<ApiError> handleAuthenticationException(AuthenticationException exception, HttpServletRequest request) {
+    //     return buildApiError(HttpStatus.UNAUTHORIZED, "Authentication failed", "Authentication", exception.getMessage(), request);
+    // }
     /**
      * Handles all uncaught exceptions.
      *
@@ -110,19 +103,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiError> handleAllUncaughtExceptions(Exception exception, HttpServletRequest request) {
         return buildApiError(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred", "globalError", exception.getMessage(), request);
     }
-//    @ExceptionHandler(BadCredentialsException.class)
-//    public ModelAndView handleBadCredentialsView(BadCredentialsException exception) {
-//        ModelAndView mav = new ModelAndView("login");
-//        mav.addObject("loginError", true);
-//        return mav;
-//    }
 
-//    @ExceptionHandler(Exception.class)
-//    public ModelAndView handleGenericView(Exception exception) {
-//        ModelAndView mav = new ModelAndView("error");
-//        mav.addObject("message", "An unexpected error occurred.");
-//        return mav;
-//    }
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiError> handleEntityNotFound(
             EntityNotFoundException ex, HttpServletRequest request) {
@@ -134,6 +115,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             ConstraintViolationException ex, HttpServletRequest request) {
         return buildApiError(HttpStatus.BAD_REQUEST, "Constraint violation", "id", ex.getMessage(), request);
     }
+
     /**
      * Handles validation errors triggered by {@code @Valid}.
      *
@@ -173,5 +155,37 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 validationErrors
         );
         return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    /**
+     * Standardizes the response body for every exception handled internally by
+     * {@link ResponseEntityExceptionHandler} (e.g. malformed request body,
+     * unsupported HTTP method, missing parameters, unsupported media type, etc.).
+     *
+     * <p>Without this override, those exceptions bypass {@link #handleAllUncaughtExceptions}
+     * entirely — Spring dispatches to the parent class's more specific internal handlers
+     * before falling back to a generic {@code Exception.class} handler — and the client
+     * receives Spring's default error body instead of {@link ApiError}.</p>
+     *
+     * @param ex the exception thrown
+     * @param body the body prepared by the internal handler (discarded in favor of ApiError)
+     * @param headers HTTP headers
+     * @param statusCode HTTP status code
+     * @param request current web request
+     * @return standardized {@link ApiError} response
+     */
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(
+            Exception ex,
+            Object body,
+            HttpHeaders headers,
+            HttpStatusCode statusCode,
+            WebRequest request) {
+        ApiError apiError = new ApiError(
+                HttpStatus.valueOf(statusCode.value()),
+                ex.getMessage() != null ? ex.getMessage() : "An unexpected error occurred",
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(apiError, statusCode);
     }
 }
