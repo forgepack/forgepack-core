@@ -14,10 +14,10 @@
 ![Maven](https://img.shields.io/badge/Maven-3.8+-blue?logo=apachemaven)
 
 ## Description
-![GitHub last commit](https://img.shields.io/github/last-commit/forgepack/forgepack-core)
-![Maven Central](https://img.shields.io/maven-central/v/dev.forgepack/core)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Test Coverage](https://img.shields.io/badge/coverage-0%25-red)
+[![GitHub last commit](https://img.shields.io/github/last-commit/forgepack/forgepack-core)](https://github.com/forgepack/forgepack-core)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.forgepack/forgepack-core)](https://central.sonatype.com/artifact/dev.forgepack/forgepack-core)
+[![Build status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/forgepack/forgepack-core/actions/workflows/build.yml)
+![Test Coverage](https://img.shields.io/badge/coverage-28%25-red)
 
 _forgepack-core_ is a Spring Boot default auto-configuration library that.
 
@@ -70,21 +70,21 @@ public class DemoApplication {
 # ║            Database Configuration            ║
 # ╚══════════════════════════════════════════════╝
 spring.datasource.url=${DATABASE_URL:jdbc:postgresql://localhost:5432/demo}
-spring.datasource.username=${USERNAME:postgres}
-spring.datasource.password=${PASSWORD:}
-spring.datasource.platform=${DATABASE_PLATFORM:postgres}
+spring.datasource.username=${DATABASE_USERNAME:postgres}
+spring.datasource.password=${DATABASE_PASSWORD:}
 spring.datasource.driver-class-name=${DATABASE_DRIVER:org.postgresql.Driver}
 
 # ╔══════════════════════════════════════════════╗
 # ║           Hibernate Configuration            ║
 # ╚══════════════════════════════════════════════╝
 spring.jpa.hibernate.ddl-auto=${DDL:create}
-spring.jpa.properties.hibernate.default_schema=${SCHEME:demo}
+spring.jpa.properties.hibernate.default_schema=${SCHEME:public}
 ```
 
 ### 2.2.2. Plugin declaration
 ```xml
 <!-- pom.xml -->
+
     <build>
 		<plugins>
 			<plugin>
