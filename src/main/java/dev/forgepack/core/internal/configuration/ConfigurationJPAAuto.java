@@ -1,5 +1,6 @@
 package dev.forgepack.core.internal.configuration;
 
+import dev.forgepack.core.internal.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
@@ -7,6 +8,8 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.persistence.autoconfigure.EntityScanPackages;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
@@ -22,7 +25,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @since 1.0
  */
 @AutoConfiguration
-@ComponentScan(basePackages = {"dev.forgepack.core.api", "dev.forgepack.core.internal"})
+@ComponentScan(
+    basePackages = {"dev.forgepack.core.api", "dev.forgepack.core.internal"},
+    excludeFilters = @ComponentScan.Filter(
+        type = FilterType.ASSIGNABLE_TYPE,
+        classes = GlobalExceptionHandler.class))
+@Import(GlobalExceptionHandler.class)
 @EnableJpaRepositories(basePackages = {"dev.forgepack.core.api.repository", "dev.forgepack.core.internal.repository"})
 @EnableConfigurationProperties({PropertiesOpenAPI.class})
 public class ConfigurationJPAAuto implements BeanDefinitionRegistryPostProcessor {

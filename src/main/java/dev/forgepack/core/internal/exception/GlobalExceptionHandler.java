@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 
 import org.jspecify.annotations.NullMarked;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -59,7 +58,6 @@ import java.util.List;
  */
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@ConditionalOnMissingBean(GlobalExceptionHandler.class)
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
