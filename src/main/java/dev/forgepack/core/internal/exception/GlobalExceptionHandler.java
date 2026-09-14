@@ -11,10 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.Ordered;
 
 // import org.springframework.security.core.AuthenticationException;
 import java.util.ArrayList;
@@ -45,17 +47,18 @@ import java.util.List;
  *     <li>Unhandled exceptions (fallback)</li>
  * </ul>
  *
- * <p>This class is automatically detected by Spring via {@link ControllerAdvice}.</p>
+ * <p>This class is automatically detected by Spring via {@link RestControllerAdvice}.</p>
  *
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  *
  * @see ApiError
  * @see ValidationError
- * @see ControllerAdvice
+ * @see RestControllerAdvice
  * @see ResponseEntityExceptionHandler
  */
-@ControllerAdvice
+@RestControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @ConditionalOnMissingBean(GlobalExceptionHandler.class)
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
