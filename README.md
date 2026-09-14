@@ -29,6 +29,9 @@ _forgepack-core_ is a Spring Boot default auto-configuration library that.
 - [Developers](#developers)
 - [License](#license)
 
+ROADMAP
+- [] Unique
+
 ## 1. INSTALLATION
 
 ### 1.1. Maven
@@ -49,9 +52,11 @@ implementation 'dev.forgepack:forgepack-core:{VERSION}'
 
 ### 2.1. Basic Setup
 
-The library auto-configures itself via Spring Boot's auto-configuration mechanism. No additional `@EnableXxx` annotation is required.
+The library configures itself via the Spring Boot auto-configuration mechanism. An additional `@EnableXxx` annotation is required only for new classes.
 
 ```java
+@EnableJpaRepositories("com.example.demo.item")
+@EntityScan("com.example.demo.item")
 @SpringBootApplication
 public class DemoApplication {
     public static void main(String[] args) {
@@ -79,6 +84,22 @@ spring.datasource.driver-class-name=${DATABASE_DRIVER:org.postgresql.Driver}
 # ╚══════════════════════════════════════════════╝
 spring.jpa.hibernate.ddl-auto=${DDL:create}
 spring.jpa.properties.hibernate.default_schema=${SCHEME:public}
+```
+
+### 2.2.2. Dependency library declaration
+```xml
+<!-- pom.xml -->
+        <dependency>
+			<groupId>dev.forgepack</groupId>
+			<artifactId>forgepack-core</artifactId>
+			<version>0.0.22</version>
+		</dependency>
+
+		<dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 ```
 
 ### 2.2.2. Plugin declaration
