@@ -42,23 +42,17 @@
 		<java.version>25</java.version>
 	</properties>
 	<dependencies>
-		<!-- Forgepack: Email, QRcode, AES encryption -->
-		<dependency>
-			<groupId>dev.forgepack</groupId>
-			<artifactId>forgepack-utils</artifactId>
-			<version>0.0.7</version>
-		</dependency>
 		<!-- Forgepack: Custom Bean Validation -->
 		<dependency>
 			<groupId>dev.forgepack</groupId>
 			<artifactId>forgepack-validation</artifactId>
 			<version>0.0.6</version>
 		</dependency>
-		<!-- Test: open source testing framework -->
+		<!-- Forgepack: Email, QRcode, AES encryption -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<groupId>dev.forgepack</groupId>
+			<artifactId>forgepack-utils</artifactId>
+			<version>0.0.7</version>
 		</dependency>
 		<!-- Hibernate Envers: provides auditing -->
 		<dependency>
