@@ -92,7 +92,7 @@ spring.jpa.properties.hibernate.default_schema=${SCHEME:public}
         <dependency>
 			<groupId>dev.forgepack</groupId>
 			<artifactId>forgepack-core</artifactId>
-			<version>0.0.22</version>
+			<version>0.0.23</version>
 		</dependency>
 
 		<dependency>
