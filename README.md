@@ -17,7 +17,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/forgepack/forgepack-core)](https://github.com/forgepack/forgepack-core)
 [![Maven Central](https://img.shields.io/maven-central/v/dev.forgepack/forgepack-core)](https://central.sonatype.com/artifact/dev.forgepack/forgepack-core)
 [![Build status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/forgepack/forgepack-core/actions/workflows/build.yml)
-![Test Coverage](https://img.shields.io/badge/coverage-28%25-red)
+![Test Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 
 _forgepack-core_ is a Spring Boot default auto-configuration library that.
 
@@ -131,13 +131,17 @@ Internal implementation details are encapsulated in `dev.forgepack.core.internal
 
 ### 4.1. Current Coverage Metrics
 
-GENERAL COVERAGE: 28%
-TOTAL NUMBER OF TESTS: 10
+_Last measured via JaCoCo (`mvn clean test jacoco:report`)._
+
+GENERAL COVERAGE (instructions): 98%
+LINE COVERAGE: 98%
+BRANCH COVERAGE: 92%
+TOTAL NUMBER OF TESTS: 46
 
 | Package                                    |  Coverage |         |
 |:-------------------------------------------|:---------:|:-------:|
-| 📁 dev.forgepack.core.api                  |    12%    |   🔴   |
-| 📁 dev.forgepack.core.internal             |    57%    |   🟠   |
+| 📁 dev.forgepack.core.api                  |   100%    |   🟢   |
+| 📁 dev.forgepack.core.internal             |    98%    |   🟢   |
 
 ### 4.2. Types of Tests Implemented
 1. __Unit Tests__: Service and component layer
