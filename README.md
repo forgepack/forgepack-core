@@ -52,11 +52,9 @@ implementation 'dev.forgepack:forgepack-core:{VERSION}'
 
 ### 2.1. Basic Setup
 
-The library configures itself via the Spring Boot auto-configuration mechanism. An additional `@EnableXxx` annotation is required only for new classes.
+The library configures itself via Spring Boot auto-configuration. Keep the application class in a parent package of its entities, repositories, services, and controllers so Spring Boot discovers the consumer's concrete types automatically.
 
 ```java
-@EnableJpaRepositories("com.example.demo.item")
-@EntityScan("com.example.demo.item")
 @SpringBootApplication
 public class DemoApplication {
     public static void main(String[] args) {

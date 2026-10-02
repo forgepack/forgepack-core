@@ -43,22 +43,15 @@
 		<jacoco.version>0.8.15</jacoco.version>
 	</properties>
 	<dependencies>
-		<!-- Forgepack: Custom Bean Validation -->
-		<dependency>
-			<groupId>dev.forgepack</groupId>
-			<artifactId>forgepack-validation</artifactId>
-			<version>0.0.6</version>
-		</dependency>
-		<!-- Forgepack: Email, QRcode, AES encryption -->
-		<dependency>
-			<groupId>dev.forgepack</groupId>
-			<artifactId>forgepack-utils</artifactId>
-			<version>0.0.7</version>
-		</dependency>
 		<!-- Test: open source testing framework -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<!-- Hibernate Envers: provides auditing -->
