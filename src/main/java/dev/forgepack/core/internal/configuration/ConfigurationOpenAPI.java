@@ -6,9 +6,10 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ import java.util.List;
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  */
-@Configuration
+@AutoConfiguration
+@EnableConfigurationProperties(PropertiesOpenAPI.class)
 public class ConfigurationOpenAPI {
 
     private final PropertiesOpenAPI props;

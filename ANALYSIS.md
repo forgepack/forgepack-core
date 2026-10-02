@@ -1,7 +1,7 @@
 # ANÁLISE ARQUITETURAL — forgepack-core
 
-> **Versão analisada:** 0.0.23 | **Stack:** Java 25 · Spring Boot 4.1.0 · Maven
-> **Data:** 14/09/2026
+> **Versão analisada:** 0.0.25 | **Stack:** Java 25 · Spring Boot 4.1.0 · Maven
+> **Data:** 02/10/2026
 
 ---
 
@@ -43,9 +43,10 @@ dev.forgepack.core
 │
 └── internal/                   ← Implementações privadas (não referenciar externamente)
     ├── configuration/
-    │   ├── ConfigurationJPAAuto        # @AutoConfiguration: ComponentScan + JPA + EntityScan
+    │   ├── ConfigurationAudit          # @AutoConfiguration: auditoria JPA
     │   ├── ConfigurationHateoas        # @EnableSpringDataWebSupport(VIA_DTO)
     │   ├── ConfigurationOpenAPI        # Bean OpenAPI via PropertiesOpenAPI
+    │   ├── ConfigurationWeb            # Bean GlobalExceptionHandler
     │   ├── PropertiesOpenAPI           # @ConfigurationProperties(prefix="forgepack.openapi")
     │   └── PropertiesCache             # @ConfigurationProperties(prefix="forgepack.cache")
     ├── controller/
@@ -64,7 +65,10 @@ dev.forgepack.core
 ```
 src/main/resources/META-INF/spring/
   org.springframework.boot.autoconfigure.AutoConfiguration.imports
-    → dev.forgepack.core.internal.configuration.ConfigurationJPAAuto
+        → ConfigurationAudit
+        → ConfigurationHateoas
+        → ConfigurationOpenAPI
+        → ConfigurationWeb
 ```
 
 ---

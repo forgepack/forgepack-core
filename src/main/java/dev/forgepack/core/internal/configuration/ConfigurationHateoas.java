@@ -1,6 +1,6 @@
 package dev.forgepack.core.internal.configuration;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 import static org.springframework.data.web.config.EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO;
@@ -16,6 +16,6 @@ import static org.springframework.data.web.config.EnableSpringDataWebSupport.Pag
  * @author Marcelo Ribeiro Gadelha
  * @since 1.0
  */
-@Configuration
+@AutoConfiguration
 @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO)
 class ConfigurationHateoas { }

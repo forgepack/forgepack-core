@@ -1,1 +1,4 @@
-dev.forgepack.core.internal.configuration.ConfigurationJPAAuto
+dev.forgepack.core.internal.configuration.ConfigurationAudit
+dev.forgepack.core.internal.configuration.ConfigurationHateoas
+dev.forgepack.core.internal.configuration.ConfigurationOpenAPI
+dev.forgepack.core.internal.configuration.ConfigurationWeb

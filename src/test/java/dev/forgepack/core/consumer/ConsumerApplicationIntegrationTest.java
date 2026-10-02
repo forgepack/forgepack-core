@@ -1,5 +1,6 @@
 package dev.forgepack.core.consumer;
 
+import dev.forgepack.core.internal.exception.GlobalExceptionHandler;
 import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,12 +29,16 @@ class ConsumerApplicationIntegrationTest {
     @org.springframework.beans.factory.annotation.Autowired
     private OpenAPI openAPI;
 
+    @org.springframework.beans.factory.annotation.Autowired
+    private GlobalExceptionHandler globalExceptionHandler;
+
     @Test
     void consumerTypesAndLibraryConfigurationAreDiscoveredWithoutJpaScanAnnotations() {
         assertThat(repository).isInstanceOf(Repository.class);
         assertThat(service).isNotNull();
         assertThat(controller).isNotNull();
         assertThat(openAPI.getInfo().getTitle()).isEqualTo("API");
+        assertThat(globalExceptionHandler).isNotNull();
     }
 
     @SpringBootApplication
